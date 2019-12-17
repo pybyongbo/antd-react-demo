@@ -43,26 +43,12 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### 组件拆分
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+如何合理的拆分组件,拆分组件带来的问题.
 
-### Analyzing the Bundle Size
+### 表单组件验证
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+拆分组件后,如何自定义验证.动态表单等,表单初始赋值.
 
-### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
