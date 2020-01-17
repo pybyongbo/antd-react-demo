@@ -4,6 +4,12 @@ import { Form, Input, Button } from 'antd';
 import styles from './index.less'
 class Dynamicform extends PureComponent {
 
+    resetForm = () =>{
+
+        this.props.form.resetFields()
+
+    }
+
     save = () => {
         const { validateFieldsAndScroll } = this.props.form;
         validateFieldsAndScroll((err, values) => {
@@ -82,7 +88,7 @@ class Dynamicform extends PureComponent {
                     <Button type="primary" onClick={this.save}>
                         保存
                      </Button>
-                    <Button onClick={this.reset}>重置</Button>
+                    <Button onClick={this.resetForm}>重置</Button>
                 </div>
             </div>
         )

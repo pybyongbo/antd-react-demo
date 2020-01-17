@@ -12,9 +12,12 @@ import {
 } from 'antd';
 // import './index.less'
 import styles from './index.less'
-import provinces from 'china-division/dist/provinces.json';
-import cities from 'china-division/dist/cities.json';
-import areas from 'china-division/dist/areas.json';
+// import provinces from 'china-division/dist/provinces.json';
+// import cities from 'china-division/dist/cities.json';
+// import areas from 'china-division/dist/areas.json';
+
+import options from '../../utils/cities'
+import moment from 'moment';
 
 
 
@@ -37,37 +40,40 @@ const formItemLayoutWithOutLabel = {
     }
 };
 
-// 格式化城市数据
-areas.forEach(area => {
-    const matchCity = cities.filter(city => city.code === area.cityCode)[0];
-    if (matchCity) {
-        matchCity.children = matchCity.children || [];
-        matchCity.children.push({
-            label: area.name,
-            value: area.code
-        });
-    }
-});
+// // 格式化城市数据
+// areas.forEach(area => {
+//     const matchCity = cities.filter(city => city.code === area.cityCode)[0];
+//     if (matchCity) {
+//         matchCity.children = matchCity.children || [];
+//         matchCity.children.push({
+//             label: area.name,
+//             value: area.code
+//         });
+//     }
+// });
 
-cities.forEach(city => {
-    const matchProvince = provinces.filter(
-        province => province.code === city.provinceCode
-    )[0];
-    if (matchProvince) {
-        matchProvince.children = matchProvince.children || [];
-        matchProvince.children.push({
-            label: city.name,
-            value: city.code,
-            children: city.children
-        });
-    }
-});
+// cities.forEach(city => {
+//     const matchProvince = provinces.filter(
+//         province => province.code === city.provinceCode
+//     )[0];
+//     console.log('matchProvince',matchProvince)
+//     if (matchProvince) {
+//         matchProvince.children = matchProvince.children || [];
+//         matchProvince.children.push({
+//             label: city.name,
+//             value: city.code,
+//             children: city.children
+//         });
+//     }
+// });
 
-const options = provinces.map(province => ({
-    label: province.name,
-    value: province.code,
-    children: province.children
-}));
+// const options = provinces.map(province => ({
+//     label: province.name,
+//     value: province.code,
+//     children: province.children
+// }));
+
+// console.log("options",options);
 
 // 工作经历与项目经历
 let workUid = 0;
@@ -75,11 +81,55 @@ let projectUid = 0;
 
 
 class Basicform extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            cascader: [], // Cascader级联 当前省市区
+            curCity:[]
+            // province: getProvince[0].name, // 当前省
+            // cities: getCity[getProvince[0].id], // 当前省下市
+            // cityValue: getCity[getProvince[0].id][0].name, // 当前市
+            // provinceCode: '', // 当前省code
+            // cityCode: '', // 当前市code
+        }
+    }
+    onChange = (value, i) => {
+
+        // const { form } = this.props;
+        console.log('value',value);
+        let cityArr = [];
+        let cityObj = i.map((item,index)=>{
+            return {
+                'id':item.code,
+                'name':item.value
+            }
+        })
+        console.log('cityObj',cityObj)
+        this.setState({
+            cascader: i,
+            curCity:cityObj
+        }, () => {
+            console.log(value);
+            console.log(i);
+
+        })
+
+        // form.setFieldsValue({
+        //         city: value
+        //     });
+    }
     save = () => {
         const { validateFieldsAndScroll } = this.props.form;
         validateFieldsAndScroll((err, values) => {
             if (err) {
                 return;
+            }
+            values = {
+                curCity:this.state.curCity,
+                ...values,
+                
+                birthday: moment(values.birthday).format('YYYY-MM-DD')
             }
             const body = JSON.stringify(values, null, 2);
             console.log(body);
@@ -123,6 +173,7 @@ class Basicform extends React.Component {
         });
     };
     render() {
+        const { cascader } = this.state;
         const { getFieldDecorator, getFieldValue } = this.props.form;
         getFieldDecorator('workKeys', { initialValue: [] });
         getFieldDecorator('projectKeys', { initialValue: [] });
@@ -163,13 +214,12 @@ class Basicform extends React.Component {
                 </Form.Item>
             );
         });
-        console.log(123,projectKeys)
         const projectItems = projectKeys.map((k, index) => {
             return (
                 <Card
                     key={k}
                     extra={<span onClick={() => this.removeProjectExp(k)}>删除</span>}
-                    style={{marginBottom:10}}
+                    style={{ marginBottom: 10 }}
                 >
                     <Form.Item {...formItemLayout} label="项目名称">
                         {getFieldDecorator(`projects[${k}].title`, {
@@ -268,25 +318,25 @@ class Basicform extends React.Component {
                             )}
                         </Form.Item>
                         <Form.Item label="所在城市">
-                            {getFieldDecorator('city', {
+                             {getFieldDecorator('city', {
                                 rules: [
                                     {
                                         required: true,
                                         message: '请选择所在城市'
                                     }
                                 ],
-                                normalize: function(value) {
-                                    console.log(value);
-                                    return value ? [value[value.length - 1]] : value;
-                                }
-                            })(
+                                //normalize: function (value) {
+                                    // console.log(value);
+                                    // return value ? [value[value.length - 1]] : value;
+                                //}
+                            })( 
                                 <Cascader
                                     options={options}
-                                    showSearch
-                                    placeholder="请选择地址（支持搜索）"
+                                    placeholder="请选择地址"
+                                    onChange={this.onChange}
                                     style={{ width: 400 }}
                                 />
-                            )}
+                             )} 
                         </Form.Item>
                         <Form.Item label="邮箱">
                             {getFieldDecorator('email', {
