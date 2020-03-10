@@ -74,7 +74,7 @@ export default class Home extends React.Component {
                     <Col span={2} >
                         <Button size="large" style={{ marginLeft: '10px',marginRight:'10px' }} type="primary" onClick={this.handAdd}>提交</Button>
                     </Col>
-                    <Col span={4}>
+                    <Col span={6}>
                     <div className="errorTips">
                     {this.state.errorText && <p>{this.state.errorText}</p>}
                     </div>

@@ -22,6 +22,28 @@ const menuList = [
     {
         title: '多个表单(拆分组件)',
         key: '/home/comdialogform'
+    },
+
+    {
+        title: '父子组件通信(父->子)',
+        key: '/home/parenttoson'
+    },
+
+    {
+        title: '父子组件通信(子->父(1))',
+        key: '/home/sontoparent1'
+    },
+    {
+        title: '父子组件通信(子->父(2))',
+        key: '/home/sontoparent2'
+    },
+
+    {
+        title: '兄弟组件通信',
+        key: '/home/container'
     }
+
+
+    
 ];
 export default menuList;

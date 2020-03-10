@@ -13,7 +13,13 @@ import Dialogform from './pages/dialogform'
 
 import Comformtest from './pages/formtest'
 
+import Parenttoson from './pages/parenttoson'
 
+import Sontoparent1 from './pages/sontoparent1'
+
+import Sontoparent2 from './pages/sontoparent2'
+
+import Container from './pages/container'
 
 class IRouter extends React.Component {
     render() {
@@ -31,6 +37,11 @@ class IRouter extends React.Component {
                                 <Route path="/home/componentform" component={Componentform}/>
                                 <Route path="/home/dialogform" component={Dialogform}/>
                                 <Route path="/home/comdialogform" component={Comformtest}/>
+                                <Route path="/home/parenttoson" component={Parenttoson}/>
+                                <Route path="/home/sontoparent1" component={Sontoparent1}/>
+                                <Route path="/home/sontoparent2" component={Sontoparent2}/>
+                                <Route path="/home/container" component={Container}/>
+                                
                                 {/* <Route  component={NoMatch}/> */}
                             </Switch>
                         </Layout>   
