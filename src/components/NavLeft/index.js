@@ -1,8 +1,6 @@
 import React from 'react';
-
 import MenuConfig from '../../config/index'
-
-import { Menu, Icon, Divider } from 'antd';
+import { Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
 import './index.css'
 const { SubMenu } = Menu;

@@ -5,6 +5,6 @@ import './index.css';
 // import Layout from './Layout.js';
 
 import Router from './router'
-ReactDOM.render(<Router />, document.getElementById('root'));
+ReactDOM.render(<Router/>, document.getElementById('root'));
 
 

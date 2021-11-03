@@ -12,5 +12,6 @@ code {
     monospace;
 }
 .content{
+  width:980px;
     padding-left:120px;
 }
