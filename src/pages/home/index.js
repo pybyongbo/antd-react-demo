@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-
+import axios from 'axios';
 import { Input, Row, Col, List, Button, Tag, Empty, Checkbox, Radio } from 'antd';
 
 import store from '../../store/store'
@@ -36,7 +36,18 @@ export default class Home extends React.Component {
   }
   componentDidMount() {
     // console.log(this.state.value);
+    // test
+    // axios.get('http://localhost:3001/getcoursefield')
+    //   .then(function (response) {
+    //     const { data: { fieldCourse } } = response
+    //     console.log('fieldCourse', fieldCourse);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   })
+    //   .then(function () {
 
+    //   });
   }
   handleChange = () => {
     this.setState(store.getState());
