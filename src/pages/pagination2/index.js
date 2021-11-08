@@ -13,7 +13,7 @@ function PageinationNews(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { newsList, total, loading } = props;
+  const { todolist: { newsList, total, loading } } = props;
 
   const columns = [
     {

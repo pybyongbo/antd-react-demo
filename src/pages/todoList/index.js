@@ -1,68 +1,46 @@
+/* eslint-disable no-useless-constructor */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-// import axios from 'axios';
+import { connect } from 'react-redux';
 import { Input, Row, Col, List, Button, Tag, Empty, Checkbox, Radio } from 'antd';
 
-import store from '../../store/store'
+import store from '../../store/store';
 import {
-  getInputChangeAction,
-  getAddItemAction,
-  changeItemStatusAction,
-  delItemAction
-} from '../../store/actions'
+  getInputChangeCAction,
+  getAddItemCAction,
+  changeItemStatusCAction,
+  delItemCAction,
+  filterListCAction
+} from '../../store/actions';
 
 import closeImg from '../../assets/icon-close.png'
 
-// import { randomNum } from '../../utils/index';
-
-// import { getArticleList, getUserList } from '../../services/index';
 
 import moment from 'moment';
 import './index.less'
 
-export default class Home extends React.Component {
+class TodoList extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      list: store.getState().todolist.list,
-      value: store.getState().todolist.inputValue,
+      // list: store.getState().todolist.list,
+      // value: store.getState().todolist.inputValue,
       errorText: '',
       tagcolorArr: ['#ff5500', '#2db7f5', '#87d068'],
-      curStatus: 0
+      cval: 0
     }
-    store.subscribe(this.handleChange);
+    // store.subscribe(this.handleChange);
   }
-  componentDidMount() {
-    // console.log(this.state.value);
-    // test
-    // axios.get('http://localhost:3001/getcoursefield')
-    //   .then(function (response) {
-    //     const { data: { fieldCourse } } = response
-    //     console.log('fieldCourse', fieldCourse);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   })
-    //   .then(function () {
 
-    //   });
-  }
-  handleChange = () => {
-    this.setState({
-      // ...this.state,
-      ...store.getState().todolist
-    },()=>{
-      console.log('result state',store.getState(), this.state);
-    });
-    
-  }
+
   handleInputChange = (e) => {
-    const action = getInputChangeAction(e.target.value);
+    // const action = getInputChangeAction(e.target.value);
+    // store.dispatch(action);
+    this.props.handleInputChangeFn(e);
     e.target.value && this.setState({
       errorText: ''
     })
-    store.dispatch(action);
   }
 
   //按Enter键触发提交
@@ -73,25 +51,32 @@ export default class Home extends React.Component {
   }
 
   handAdd = () => {
-    const action = getAddItemAction();
-    !this.refs.myInput.input.value && this.setState({
-      errorText: '文本框值不能为空提交哦~'
-    })
-
-    this.refs.myInput.input.value && store.dispatch(action);
-    console.log(this.refs.myInput.input.value);
+    // const action = getAddItemAction();
+    // this.refs.myInput.input.value && store.dispatch(action);
+    // console.log(this.refs.myInput.input.value);
+    // !this.refs.myInput.input.value && this.setState({
+    //   errorText: '文本框值不能为空提交哦~'
+    // });
+    if (this.refs.myInput.input.value) {
+      this.props.handAddFn();
+    } else {
+      this.setState({
+        errorText: '文本框值不能为空提交哦~'
+      })
+    }
 
   }
-  handleDel = (e) => {
-    const action = delItemAction(e);
-    console.log(e);
-    store.dispatch(action);
+  handleDel = (obj) => {
+    // const action = delItemAction(e);
+    // console.log(e);
+    // store.dispatch(action);
+    this.props.handleDelFn(obj);
 
   }
   // 选中与取消选中
   onChangeCheck = (obj, checked) => {
     console.log('result', obj, checked);
-    const action = changeItemStatusAction(obj, checked);
+    const action = changeItemStatusCAction(obj, checked);
     store.dispatch(action);
   }
 
@@ -104,12 +89,16 @@ export default class Home extends React.Component {
 
     // }
     this.setState({
-      list: this.flist(val).clist
+      cval: val
+    }, () => {
+      this.flist(val);
     })
+
+    // this.props.handleFilterItem(val);
   }
 
   flist = (val) => {
-    const slistArr = store.getState().todolist.list;
+    const slistArr = this.props.list;
     if (val === 0) {
       return {
         clist: slistArr,
@@ -132,11 +121,15 @@ export default class Home extends React.Component {
 
   render() {
 
-    const { tagcolorArr } = this.state;
+    const { tagcolorArr, cval } = this.state;
+    const { list = [], connecttodolist: { inputValue } } = this.props;
+    console.log('this.props', this.props)
+    console.log('list', list);
+
     return (
       <div className="App">
         <h1>React+Redux+Antd实现todolist功能:</h1>
-        <h2>react-redux原生API版</h2>
+        <h2>react-redux(connect版)</h2>
         <br />
         <Row className="todo-box">
           <Col span={20}>
@@ -144,7 +137,7 @@ export default class Home extends React.Component {
               onChange={e => this.handleInputChange(e)}
               ref="myInput"
               onKeyPress={(e) => this.addItemEnter(e)}
-              value={this.state.inputValue} />
+              value={inputValue} />
           </Col>
 
           <Col span={2} >
@@ -176,7 +169,7 @@ export default class Home extends React.Component {
             <List
               bordered
               split={true}
-              dataSource={this.state.list}
+              dataSource={this.flist(cval).clist}
               pagination={{
                 hideOnSinglePage: true,
                 onChange: page => {
@@ -222,3 +215,33 @@ export default class Home extends React.Component {
 
   }
 }
+
+const mapStateToProps = (state) => ({
+  ...state,
+  list: state.connecttodolist.list
+})
+
+const mapDispatchToProps = (dispatch) => {
+
+  return {
+    handleInputChangeFn: (e) => {
+      // console.log('result e', e);
+      dispatch(getInputChangeCAction(e.target.value));
+    },
+    handAddFn: () => {
+      dispatch(getAddItemCAction());
+    },
+    handleDelFn: (obj) => {
+      dispatch(delItemCAction(obj));
+    },
+    handleFilterItem: (val) => {
+      dispatch(filterListCAction(val))
+    }
+  }
+  // getInputChangeAction,
+  // getAddItemAction,
+  // changeItemStatusAction,
+  // delItemAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

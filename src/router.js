@@ -9,6 +9,7 @@ import store from './store/store';
 
 import Layout from './Layout';
 import Home from './pages/home';
+import TodoList from './pages/todoList';
 import Basicform from './pages/form';
 // import Dynamicform from './pages/dynamicform';
 // import Componentform from './pages/componetform'
@@ -23,15 +24,8 @@ import PageNews from './pages/pagination2';
 
 import Toggle from './pages/toggle';
 
-// import Comformtest from './pages/formtest'
+import Navtest from './pages/navtest'
 
-// import Parenttoson from './pages/parenttoson'
-
-// import Sontoparent1 from './pages/sontoparent1'
-
-// import Sontoparent2 from './pages/sontoparent2'
-
-// import Container from './pages/container'
 
 class IRouter extends React.Component {
   render() {
@@ -45,12 +39,15 @@ class IRouter extends React.Component {
                   <Switch>
                     <Route path='/' exact={true} component={Home} />
                     <Route path='/home/index' component={Home} />
+                    <Route path='/home/todoList' component={TodoList} />
                     <Route path="/home/form" component={Basicform} />
                     <Route path="/home/dialogform" component={Moreform} />
                     <Route path="/home/formtest" component={Formtest} />
                     <Route path="/home/pagination1" component={PageCom} />
                     <Route path="/home/paginationnews" component={PageNews} />
                     <Route path="/home/toggleChange" component={Toggle} />
+                    <Route path="/home/navTest" component={Navtest} />
+
                     {/* <Route path="/home/dynamicform" component={Dynamicform}/>   
                     <Route path="/home/componentform" component={Componentform}/>
                     <Route path="/home/dialogform" component={Dialogform}/>

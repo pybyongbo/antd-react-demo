@@ -1,12 +1,12 @@
 import {
-  CHANGE_INPUT_VALUE_CON,
-  ADD_TODO_ITEM_CON,
-  DEL_TODO_ITEM_CON,
-  CHANGE_TODO_ITEM_STATUS_CON,
-  SET_VISIBILITY_FILTER_CON,
+  CHANGE_INPUT_VALUE,
+  ADD_TODO_ITEM,
+  DEL_TODO_ITEM,
+  CHANGE_TODO_ITEM_STATUS,
+  SET_VISIBILITY_FILTER,
   GET_ARTICLE_LIST,
   GET_NEWS_LIST
-} from './actionType';
+} from '../actionType';
 
 let initialState = {
   inputValue: '',
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
   const { payload } = action;
 
 
-  if (action.type === CHANGE_INPUT_VALUE_CON) {
+  if (action.type === CHANGE_INPUT_VALUE) {
 
     /**方法1: */
     // const newState = JSON.parse(JSON.stringify(state));
@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
     return { ...state, inputValue: action.value }
   }
 
-  if (action.type === ADD_TODO_ITEM_CON) {
+  if (action.type === ADD_TODO_ITEM) {
 
 
     // const newState = JSON.parse(JSON.stringify(state));
@@ -62,7 +62,7 @@ export default (state = initialState, action) => {
 
     return { ...newState }
   }
-  if (action.type === DEL_TODO_ITEM_CON) {
+  if (action.type === DEL_TODO_ITEM) {
     // const newState = JSON.parse(JSON.stringify(state));
 
     const newState = { ...state };
@@ -76,7 +76,7 @@ export default (state = initialState, action) => {
   }
 
 
-  if (action.type === CHANGE_TODO_ITEM_STATUS_CON) {
+  if (action.type === CHANGE_TODO_ITEM_STATUS) {
 
     console.log('result action', action);
     const newState = { ...state };
@@ -90,10 +90,11 @@ export default (state = initialState, action) => {
     // console.log('result newState',newState)
     return newState
 
+
   }
 
-  if (action.type === SET_VISIBILITY_FILTER_CON) {
-    // debugger
+  if (action.type === SET_VISIBILITY_FILTER) {
+
     // console.log('result val', action.value);
     const newState = { ...state };
     // debugger
@@ -102,31 +103,25 @@ export default (state = initialState, action) => {
     //     return newState;
     //   case 1:
     //     debugger
-    //     return {
-    //       ...newState,
-    //       curlist: newState.list.filter((item, index) => {
-    //         return item.status === true
-    //       })
-    //     };
-    //     // return Object.assign({}, newState, {
+    //     // return {
+    //     //   ...newState,
     //     //   list: newState.list.filter((item, index) => {
     //     //     return item.status === true
     //     //   })
-    //     // })
+    //     // };
+    //     return Object.assign({}, newState, {
+    //       list: newState.list.filter((item, index) => {
+    //         return item.status === true
+    //       })
+    //     })
     //   // return newState;
     //   case 2:
     //     // debugger
-    //     // return Object.assign({}, newState, {
-    //     //   list: newState.list.filter((item, index) => {
-    //     //     return item.status === false
-    //     //   })
-    //     // })
-    //     return {
-    //       ...newState,
-    //       curlist: newState.list.filter((item, index) => {
+    //     return Object.assign({}, newState, {
+    //       list: newState.list.filter((item, index) => {
     //         return item.status === false
     //       })
-    //     };
+    //     })
     //   // return newState
     //   default:
     //     return newState;

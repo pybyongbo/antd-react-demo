@@ -3,8 +3,11 @@ import {
   ADD_TODO_ITEM,
   DEL_TODO_ITEM,
   CHANGE_TODO_ITEM_STATUS,
-  SET_VISIBILITY_FILTER,
-  // VisibilityFilters,
+  CHANGE_INPUT_VALUE_CON,
+  ADD_TODO_ITEM_CON,
+  DEL_TODO_ITEM_CON,
+  CHANGE_TODO_ITEM_STATUS_CON,
+  SET_VISIBILITY_FILTER_CON,
   GET_ARTICLE_LIST,
   GET_NEWS_LIST
 } from './actionType';
@@ -31,10 +34,35 @@ export const delItemAction = (obj) => ({
   obj
 })
 
-// export const setVisibilityFilterAction = (value) => ({
-//   type: SET_VISIBILITY_FILTER,
-//   value
-// })
+
+
+// ----------------  connect 版
+
+export const getInputChangeCAction = (value) => ({
+  type: CHANGE_INPUT_VALUE_CON,
+  value
+});
+
+export const getAddItemCAction = () => ({
+  type: ADD_TODO_ITEM_CON
+});
+
+export const changeItemStatusCAction = (obj, value) => ({
+  type: CHANGE_TODO_ITEM_STATUS_CON,
+  obj,
+  value
+});
+
+export const delItemCAction = (obj) => ({
+  type: DEL_TODO_ITEM_CON,
+  obj
+})
+
+export const filterListCAction = (value) => ({
+  type: SET_VISIBILITY_FILTER_CON,
+  value
+})
+
 
 // 请求文章
 export const getArtileList = (params) => {
@@ -49,7 +77,6 @@ export const getArtileList = (params) => {
       });
 
       const response = await getArticleList(params);
-      // console.log('result', response);
       const { code, postList, message } = response;
 
       dispatch({

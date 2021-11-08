@@ -4,6 +4,10 @@ const menuList = [
     key: '/home/index'
   },
   {
+    title: 'todoList(connect版)',
+    key: '/home/todoList'
+  },
+  {
     title: '父调子',
     key: '/home/form'
   },
@@ -28,6 +32,11 @@ const menuList = [
   {
     title: '选中切换',
     key: '/home/toggleChange'
+  },
+
+  {
+    title: '导航菜单测试',
+    key: '/home/navtest'
   },
 
   // {

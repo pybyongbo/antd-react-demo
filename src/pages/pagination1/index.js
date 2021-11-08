@@ -16,7 +16,7 @@ function PageinationTest(props) {
   }, []);
 
   console.log('result props', props);
-  const { artileList } = props;
+  const { todolist: { artileList } } = props;
   const columns = [
     {
       title: 'ID',
