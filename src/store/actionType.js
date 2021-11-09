@@ -44,9 +44,10 @@ export const GET_NEWS_LIST = 'get_news_list';
 // -----------------------------------
 
 // 课程选项卡切换
+export const CHANGE_COURSE_FIELD='change_course_field';
 
 // 课程分类数据:
-export const GET_COURSE_CATEGORY = 'get_course_category';
+export const GET_COURSE_FIELD = 'get_course_field';
 
 // 课程分类所对应的数据:
-export const GET_COURSE_CATE_LIST = 'get_course_cate_list';
+export const GET_COURSE_FIELD_LIST = 'get_course_field_list';

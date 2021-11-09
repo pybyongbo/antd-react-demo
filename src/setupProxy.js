@@ -18,4 +18,13 @@ module.exports = function(app) {
       changeOrigin: true,
       // secure: false
   }));
+
+  app.use(createProxyMiddleware('/course', {
+    target: 'http://localhost:3001',
+    pathRewrite: {
+      '^/course': '',
+    },
+    changeOrigin: true,
+    // secure: false
+}));
 };

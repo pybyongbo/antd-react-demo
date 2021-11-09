@@ -8,12 +8,14 @@ import creducer from './reducer';
 
 // 多个reducer 写法:
 import TodolistReducer from './TodoListReducer/index.js';
+import CourseReducer from './CourseReducer/index.js';
+
 
 // 使用该方法合并两个reducer
 const rootReducer = combineReducers({
   connecttodolist: creducer,
   todolist: TodolistReducer,
-
+  courseList:CourseReducer
   // UserReducer
 });
 

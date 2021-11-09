@@ -11,8 +11,6 @@ import Layout from './Layout';
 import Home from './pages/home';
 import TodoList from './pages/todoList';
 import Basicform from './pages/form';
-// import Dynamicform from './pages/dynamicform';
-// import Componentform from './pages/componetform'
 
 import Moreform from './pages/moreform';
 
@@ -24,7 +22,10 @@ import PageNews from './pages/pagination2';
 
 import Toggle from './pages/toggle';
 
-import Navtest from './pages/navtest'
+import Navtest from './pages/navtest';
+
+
+import CourseList from './pages/courseTab';
 
 
 class IRouter extends React.Component {
@@ -47,7 +48,7 @@ class IRouter extends React.Component {
                     <Route path="/home/paginationnews" component={PageNews} />
                     <Route path="/home/toggleChange" component={Toggle} />
                     <Route path="/home/navTest" component={Navtest} />
-
+                    <Route path="/home/courselist" component={CourseList} />
                     {/* <Route path="/home/dynamicform" component={Dynamicform}/>   
                     <Route path="/home/componentform" component={Componentform}/>
                     <Route path="/home/dialogform" component={Dialogform}/>

@@ -3,6 +3,9 @@ import qs from 'qs'
 const prefix = '/api';
 const preNewsfix = '/client';
 
+const preCoursefix = '/course';
+
+
 
 //测试接口方法 
 export async function getArticleList(data) {
@@ -29,6 +32,23 @@ export async function getNewsList(params) {
     url: `${preNewsfix}/ajaxpage/ajax_page_click/data.php`,
     method: 'GET',
     params
+  });
+  return response.data;
+}
+
+
+export async function getCourseField(){
+  const response = await request({
+    url: `${preCoursefix}/course/get_course_fields`,
+    method: 'GET',
+  });
+  return response.data;
+}
+
+export async function getCourseFieldList(curField){
+  const response = await request({
+    url: `${preCoursefix}/course/get_courses/all?field=${curField}`,
+    method: 'GET',
   });
   return response.data;
 }

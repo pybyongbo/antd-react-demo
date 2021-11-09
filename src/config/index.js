@@ -39,6 +39,11 @@ const menuList = [
     key: '/home/navtest'
   },
 
+  {
+    title: '课程列表',
+    key: '/home/courselist'
+  },
+
   // {
   //     title: '父子组件通信(父->子)',
   //     key: '/home/parenttoson'

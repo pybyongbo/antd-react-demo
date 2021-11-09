@@ -225,7 +225,6 @@ const mapDispatchToProps = (dispatch) => {
 
   return {
     handleInputChangeFn: (e) => {
-      // console.log('result e', e);
       dispatch(getInputChangeCAction(e.target.value));
     },
     handAddFn: () => {
@@ -238,10 +237,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(filterListCAction(val))
     }
   }
-  // getInputChangeAction,
-  // getAddItemAction,
-  // changeItemStatusAction,
-  // delItemAction
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

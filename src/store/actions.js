@@ -9,10 +9,13 @@ import {
   CHANGE_TODO_ITEM_STATUS_CON,
   SET_VISIBILITY_FILTER_CON,
   GET_ARTICLE_LIST,
-  GET_NEWS_LIST
+  GET_NEWS_LIST,
+  CHANGE_COURSE_FIELD,
+  GET_COURSE_FIELD,
+  GET_COURSE_FIELD_LIST
 } from './actionType';
 
-import { getArticleList, getNewsList } from '../services/index';
+import { getArticleList, getNewsList, getCourseField,getCourseFieldList } from '../services/index';
 
 export const getInputChangeAction = (value) => ({
   type: CHANGE_INPUT_VALUE,
@@ -62,6 +65,92 @@ export const filterListCAction = (value) => ({
   type: SET_VISIBILITY_FILTER_CON,
   value
 })
+
+
+export const changeCourseField = (field) => ({
+    type:CHANGE_COURSE_FIELD,
+    field
+});
+
+// 课程列表分类
+export const getCourseFieldAll = () => {
+
+  return async dispatch => {
+    try {
+      // 开始请求
+      dispatch({
+        type: GET_COURSE_FIELD,
+        payload: {
+          loading: true
+        }
+      });
+
+      const response = await getCourseField();
+      const { code, result, message } = response;
+
+      dispatch({
+        type: GET_COURSE_FIELD,
+        payload: {
+          loading: false
+        }
+      });
+      if (code === 0) {
+        dispatch({
+          type: GET_COURSE_FIELD,
+          payload: {
+            field: result,
+          }
+        });
+        return response;
+      } else {
+        throw new Error(message);
+      }
+
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+}
+
+export const getCourseFieldListData = (params) => {
+
+  return async dispatch => {
+    try {
+      // 开始请求
+      dispatch({
+        type: GET_COURSE_FIELD,
+        payload: {
+          loading: true
+        }
+      });
+
+      const response = await getCourseFieldList(params);
+      const { code, result, message } = response;
+
+      dispatch({
+        type: GET_COURSE_FIELD,
+        payload: {
+          loading: false
+        }
+      });
+      if (code === 0) {
+        dispatch({
+          type: GET_COURSE_FIELD,
+          payload: {
+            fieldList: result,
+          }
+        });
+        return response;
+      } else {
+        throw new Error(message);
+      }
+
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+}
 
 
 // 请求文章
