@@ -1,14 +1,13 @@
 import React from 'react';
-
 import FieldItem from './fieldItem';
-import { getCourseField } from '../../services/index.js'
+import { getCourseField } from '../../services/index.js';
 import './index.less'
 export default class FieldNav extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      fieldData: []
+      fieldData: [],
     }
 
   }
@@ -23,6 +22,12 @@ export default class FieldNav extends React.Component {
     })
   }
 
+  getSum = (data) => {
+    return data.reduce((acc, cur) => {
+      return acc + cur.totalCount
+    }, 0);
+  }
+
   render() {
     const { fieldData } = this.state;
     const { curField, changeCourseField } = this.props;
@@ -31,6 +36,7 @@ export default class FieldNav extends React.Component {
         <FieldItem
           key={-1}
           item={{ fieldType: -1, fieldName: '全部课程' }}
+          totalCount={this.getSum(fieldData)}
           curField={curField}
           changeCourseField={() => changeCourseField(-1)} />
 
@@ -40,6 +46,7 @@ export default class FieldNav extends React.Component {
               <FieldItem
                 key={index}
                 item={item}
+                totalCount={item.totalCount}
                 curField={curField}
                 changeCourseField={() => changeCourseField(item.fieldType)}
               />)
@@ -49,5 +56,4 @@ export default class FieldNav extends React.Component {
       </div>
     )
   }
-
 }

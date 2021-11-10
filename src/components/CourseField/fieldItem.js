@@ -6,7 +6,7 @@ import React from 'react';
 export default class FieldItem extends React.Component {
 
   render() {
-    const { item, curField, changeCourseField } = this.props;
+    const { item, totalCount, curField, changeCourseField } = this.props;
     return (
       <div className="nav-item">
         <a
@@ -14,7 +14,7 @@ export default class FieldItem extends React.Component {
           // style={{ marginRight: 10 }}
           onClick={() => changeCourseField(item.fieldType)}
 
-        >{item.fieldName}</a>
+        >{item.fieldName}-({totalCount})</a>
       </div>
 
     )

@@ -3,7 +3,8 @@ import {
 } from '../actionType';
 
 let initialState = {
-  curField: -1
+  curField: -1,
+  // curTotal: 0
 };
 
 export default (state = initialState, action) => {

@@ -1,33 +1,39 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { connect } from 'react-redux';
-
 import CourseField from '../../components/CourseField';
-
 import CourseList from '../../components/CourseList';
-
+import { getCourseField, getCourseFieldList } from '../../services/index.js';
 import { changeCourseField } from '../../store/actions.js';
-// import { Input, Row, Col, List, Button, Tag, Empty, Checkbox, Radio } from 'antd';
 
-
+import { Spin } from 'antd';
 class CourseListTab extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-
+      loading: true
     }
   }
 
-  // componentDidMount(){
+  componentDidMount() {
+    this.pageLoading();
+  }
 
-  // }
+  // 设置页面loading状态
+  pageLoading = async () => {
+    let pCourseField = await getCourseField();
+    let pCourseFieldList = await getCourseFieldList(-1);
+    Promise.all([pCourseField, pCourseFieldList]).then(res => {
+      this.setState({
+        loading: false
+      })
+    })
 
-  // const 
+  }
+
 
   render() {
-
-    // console.log('props', this.props);
 
     const { curField, changeCourseField } = this.props;
 
@@ -36,14 +42,15 @@ class CourseListTab extends React.Component {
         <h1>React+Redux+Antd实现课程列表:</h1>
         {/* <h2>react-redux原生API版</h2> */}
         <br />
+        <Spin spinning={this.state.loading}>
+          <CourseField
+            curField={curField}
+            changeCourseField={changeCourseField} />
 
-        <CourseField
-          curField={curField}
-          changeCourseField={changeCourseField} />
-
-        <CourseList 
-        curField={curField} 
-        />
+          <CourseList
+            curField={curField}
+          />
+        </Spin>
       </div>
     );
 
@@ -54,7 +61,6 @@ class CourseListTab extends React.Component {
 export default connect(
 
   function mapStateToProps(state) {
-    // debugger
     return {
       curField: state.courseList.curField
     }
@@ -65,6 +71,5 @@ export default connect(
       changeCourseField: (field) => dispatch(changeCourseField(field))
     }
   }
-
 
 )(CourseListTab)
