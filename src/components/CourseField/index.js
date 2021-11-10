@@ -13,13 +13,11 @@ export default class FieldNav extends React.Component {
 
   }
   componentDidMount() {
-
     this.getFieldData();
   }
 
   getFieldData = async () => {
     const { result } = await getCourseField();
-    console.log('result 110', result)
     this.setState({
       fieldData: result
     })
@@ -28,7 +26,6 @@ export default class FieldNav extends React.Component {
   render() {
     const { fieldData } = this.state;
     const { curField, changeCourseField } = this.props;
-    console.log('111',this.props)
     return (
       <div className="field-wrapper nav-bar">
         <FieldItem

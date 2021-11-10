@@ -17,7 +17,6 @@ export default class CourseList extends React.Component {
     this.getFieldListData(curField);
   }
 
-
   getFieldListData = async (curField) => {
     const { result } = await getCourseFieldList(curField);
     this.setState({

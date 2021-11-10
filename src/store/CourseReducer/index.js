@@ -1,12 +1,8 @@
 import {
-  // GET_COURSE_FIELD,
-  // GET_COURSE_FIELD_LIST,
   CHANGE_COURSE_FIELD
 } from '../actionType';
 
 let initialState = {
-  // field: [],
-  // fieldList: [],
   curField: -1
 };
 
