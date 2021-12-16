@@ -1549,12 +1549,14 @@ const TestForm = (props) => {
 
   const onSelectChange = (val) => {
 
-    console.log('result val', val);
+    // console.log('result val', val);
     // val === 'other' && columns.push({
     //   title: 'Address',
     //   dataIndex: 'address',
     //   key: 'address',
     // });
+
+    console.log('columns',columns)
 
     if (val === 'other') {
       setColumnsArr(columns.concat({

@@ -90,6 +90,7 @@ const Tag = (props) => {
     <Fragment>
       <h2 style={{marginTop:30}}>react hooks写法中 父组件调用子组件中的方法</h2>
       <Table
+        className="addTags"
         rowKey={`id`}
         title={() => titleEl}
         columns={columns}

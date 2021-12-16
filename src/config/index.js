@@ -23,7 +23,10 @@ const menuList = [
     title: '接口分页测试1',
     key: '/home/pagination1'
   },
-
+  {
+    title: '表单弹框赋值测试',
+    key: '/home/formtable'
+  },
   {
     title: '接口分页测试-news',
     key: '/home/paginationnews'

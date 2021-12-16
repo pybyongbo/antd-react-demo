@@ -24,6 +24,7 @@ import Toggle from './pages/toggle';
 
 import Navtest from './pages/navtest';
 
+import FormTable from './pages/formTable';
 
 import CourseList from './pages/courseTab';
 
@@ -45,6 +46,7 @@ class IRouter extends React.Component {
                     <Route path="/home/dialogform" component={Moreform} />
                     <Route path="/home/formtest" component={Formtest} />
                     <Route path="/home/pagination1" component={PageCom} />
+                    <Route path="/home/formtable" component={FormTable} />
                     <Route path="/home/paginationnews" component={PageNews} />
                     <Route path="/home/toggleChange" component={Toggle} />
                     <Route path="/home/navTest" component={Navtest} />
