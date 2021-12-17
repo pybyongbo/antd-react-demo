@@ -51,8 +51,17 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 拆分组件后,如何自定义验证.动态表单等,表单初始赋值.
 
-
 ### Antd V4 测试
 
+表单弹框赋值测试的是`table`复选框选中,切换分页,之前选中的数据丢失问题.
+
+测试验证代码里面已经修复了此问题.
+
+不能直接使用`onChange`,而需要自己单独定义`onSelect`和`onSelectAll`方法,并
+
+自己写对应的逻辑,注意去重.
 
 
+### 课程列表导航
+
+课程列表导航,需要启动后端 API 服务才能正常访问页面.

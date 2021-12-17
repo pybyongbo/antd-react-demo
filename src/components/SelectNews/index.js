@@ -26,11 +26,11 @@ const DialogSelectNews = props => {
     // 选择客群集合
     setSelectedRowKeys([].concat(groupList));
 
-  }, [selectDiaVisible]);
+  }, [groupList, selectDiaVisible]);
 
   const { todolist: { newsList, total, loading } } = props;
 
-  console.log('111', props);
+  // console.log('111', props);
 
   const onChange = (page, pageSize) => {
 
@@ -90,7 +90,7 @@ const DialogSelectNews = props => {
       }).filter(Boolean))
     }
 
-    onRadioChange(selectedRows.filter(Boolean));
+    onRadioChange(selectedRows);
 
 
   }
@@ -107,27 +107,25 @@ const DialogSelectNews = props => {
     if (selected) { // 全选操作
       setSelectedRows(uniqBy(selectedRowsData.concat(AllRows), 'id'));
       // setSelectedRowKeys(AllIds);
-      setSelectedRowKeys(Array.from(new Set(selectedRowKeys.concat(AllIds).filter(Boolean))));
+      setSelectedRowKeys(Array.from(new Set(selectedRowKeys.concat(AllIds))));
 
     } else {
-      // setSelectedRows([]);
-      // setSelectedRowKeys([]);
+
       let cIds = new Set(tmparr);
       let sIds = new Set(selectedRowKeys);
       setSelectedRows(
         [...selectedRowsData].filter((x) => [...cRows].every((y) => y.id !== x.id))
       );
-      setSelectedRowKeys(Array.from(new Set([...sIds].filter((x) => !cIds.has(x)).filter(Boolean))));
+      setSelectedRowKeys(Array.from(new Set([...sIds].filter((x) => !cIds.has(x)))));
 
     }
 
     onRadioChange(AllRows);
-    console.log('000', cRows);
   }
 
 
   const handleOk = () => {
-    props.setCustomerGroupVal(selectedRowKeys);
+    props.setCustomerGroupVal(selectedRowKeys.filter(Boolean));
   }
 
   return (

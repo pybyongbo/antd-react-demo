@@ -117,6 +117,7 @@ function PageinationTest(props) {
 
       </Form>
       {selectDiaVisible && <SelectNews {...dialogObj}></SelectNews>}
+    
     </Fragment>
 
   )

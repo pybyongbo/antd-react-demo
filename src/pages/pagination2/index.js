@@ -7,6 +7,8 @@ import { getNewsListByParams } from '../../store/actions';
 
 function PageinationNews(props) {
 
+  const [selectedRowKeys, setSelectedRowKeys] = useState([])
+
   useEffect(() => {
     const { dispatch } = props;
     dispatch(getNewsListByParams({ page: 1, pageSize: 10 }));
@@ -30,9 +32,12 @@ function PageinationNews(props) {
       title: '描述',
       dataIndex: 'description',
       key: 'description',
-
     }
   ];
+
+  const onSelectChange = (selectedRowKeys, selectedRows) => {
+    setSelectedRowKeys(selectedRowKeys)
+  }
 
   const onChange = (page, pageSize) => {
 
@@ -51,15 +56,20 @@ function PageinationNews(props) {
 
       <Table
         rowKey="id"
+        rowSelection={{
+          type: 'radio',
+          onChange: onSelectChange,
+          selectedRowKeys: selectedRowKeys
+        }}
         loading={loading}
         columns={columns}
         dataSource={newsList}
         pagination={{
           total: total,
-          // pageSize: 5,
-          showSizeChanger: true,
+          pageSize: 5,
+          showSizeChanger: false,
           onChange: onChange,
-          pageSizeOptions: [5, 10],
+          // pageSizeOptions: [5, 10],
           // onShowSizeChange: onShowSizeChange
         }}
       />
