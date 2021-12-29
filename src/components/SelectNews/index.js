@@ -71,6 +71,7 @@ const DialogSelectNews = props => {
 
 
   const onSelect = (record, selected, selectedRows) => {
+    // debugger
     console.log('result selectedRows', record, selected, selectedRows);
     const id = record.id;
     if (selected) {
@@ -90,7 +91,7 @@ const DialogSelectNews = props => {
       }).filter(Boolean))
     }
 
-    onRadioChange(selectedRows);
+    onRadioChange(selectedRows.filter(Boolean));
 
 
   }
@@ -120,7 +121,7 @@ const DialogSelectNews = props => {
 
     }
 
-    onRadioChange(AllRows);
+    onRadioChange(AllRows.filter(Boolean));
   }
 
 
