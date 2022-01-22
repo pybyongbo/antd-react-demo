@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
 import React, { Fragment, useEffect, useState } from "react";
 import { Row, Col, Select, Table, Button, Form, Cascader, Divider, Input } from "antd";
@@ -79,8 +80,15 @@ function PageinationTest(props) {
     setCustomerGroupVal,
   }
 
-  const onHandleSubmit = () => {
+  const onHandleSubmit = (val) => {
 
+    const productIds = val?.productIds.flat(2);
+    console.log('productIds', productIds)
+
+    console.log({
+      ...val,
+      productIds
+    });
   }
 
   console.log('result props', props);
@@ -152,19 +160,101 @@ function PageinationTest(props) {
 
   }
 
+  // 自定义表单控件部分
+
+  const PriceInput = ({ value = {}, onChange }) => {
+
+    const [number, setNumber] = useState(0);
+    const [currency, setCurrency] = useState('rmb');
+
+    const triggerChange = (changeValue) => {
+      onChange?.({
+        number,
+        currency,
+        ...value,
+        ...changeValue
+      })
+    }
+
+    const onNumberChange = (e) => {
+      const newNumber = parseInt(e.target.value || '0', 10);
+
+      if (Number.isNaN(number)) {
+        return;
+      }
+
+      if (!('number' in value)) {
+        setNumber(newNumber);
+      }
+
+      triggerChange({
+        number: newNumber,
+      });
+    }
+
+    const onCurrencyChange = (newCurrency) => {
+      if (!('currency' in value)) {
+        setCurrency(newCurrency);
+      }
+
+      triggerChange({
+        currency: newCurrency,
+      });
+    };
+    return (
+      <span>
+        <Input
+          type="text"
+          value={value.number || number}
+          onChange={onNumberChange}
+          style={{
+            width: 100,
+          }}
+          placeholder="请输入价格"
+        />
+        <Select
+          value={value.currency || currency}
+          style={{
+            width: 80,
+            margin: '0 8px',
+          }}
+          onChange={onCurrencyChange}
+        >
+          <Option value="rmb">RMB</Option>
+          <Option value="dollar">Dollar</Option>
+        </Select>
+      </span>
+    );
+
+  }
+  const checkPrice = (_, value) => {
+    if (value.number > 0) {
+      return Promise.resolve();
+    }
+
+    return Promise.reject(new Error('产品价格需大于0!'));
+  };
 
   return (
     <Fragment>
+
       <Form
-        // validateTrigger={['onChange', 'onBlur']}
+        validateTrigger={['onChange', 'onBlur']}
         style={{ width: '100%', marginTop: 50 }}
         name="addPushConfigform"
         form={form}
         labelAlign="right"
         labelCol={{ span: 4 }}
         onFinish={onHandleSubmit}
+        initialValues={{
+          price: {
+            number: 0,
+            currency: 'rmb',
+          },
+        }}
       >
-
+        <Row><h3>组合表单提交测试,测试自定义表单控件</h3></Row>
+        <br />
         <Row>
           <Col span={18}>
             <Form.Item
@@ -198,8 +288,6 @@ function PageinationTest(props) {
               style={{ minWidth: 45, padding: '0 10px', position: "absolute", top: 0, right: 0 }}
               onClick={() => {
                 setSelectDiaVisible(true);
-                // setOptType('cusSelect');
-                // dispatch(getArtileList({ page: 2 }))
                 props.dispatch(getNewsListByParams({ page: 1, pageSize: 5 }));
               }
               }
@@ -230,8 +318,54 @@ function PageinationTest(props) {
             </Form.Item>
           </Col>
 
+        </Row>
 
+        <Row>
+          <Col span={18}>
+            <Form.Item
+              name="price"
+              label="产品价格"
+              rules={[
+                {
+                  validator: checkPrice,
+                },
+              ]}
+            >
+              <PriceInput />
+            </Form.Item>
+          </Col>
+        </Row>
 
+        <Row>
+          <Col span={18}>
+            <Form.Item
+              label="URL"
+              name="url"
+              rules={[
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || /[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/.test(getFieldValue('url').trim())) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('请输入有效URL地址！'));
+                  },
+                }),
+              ]}
+            >
+              <Input.TextArea rows={4} maxLength={255} placeholder="非必填,如果填写,请输入有效的URL地址">
+              </Input.TextArea>
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Col>
         </Row>
 
       </Form>
