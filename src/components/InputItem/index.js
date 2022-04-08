@@ -4,9 +4,10 @@ import React, {
   useEffect,
   useImperativeHandle
 } from "react";
+import { connect } from 'react-redux';
 import { Form, Input } from "antd";
 
-const TagForm = ({ visible, editItem, handleModalCancel, onSuccess, setTabData }, tagFormRef) => {
+const TagForm = forwardRef(({ visible, editItem, handleModalCancel, onSuccess, setTabData, refInstance }, tagFormRef) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -17,7 +18,8 @@ const TagForm = ({ visible, editItem, handleModalCancel, onSuccess, setTabData }
       });
   }, [editItem, form]);
 
-  useImperativeHandle(tagFormRef, () => ({
+  // useImperativeHandle(tagFormRef, () => ({
+  useImperativeHandle(refInstance, () => ({
     submit: () => {
       const inputVal = form.getFieldValue("tagName");
       inputVal && setTabData({
@@ -42,5 +44,32 @@ const TagForm = ({ visible, editItem, handleModalCancel, onSuccess, setTabData }
       </Form>
     </Fragment>
   );
-};
-export default forwardRef(TagForm);
+});
+// export default TagForm;
+// export default forwardRef(TagForm);
+
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+// export default connect((state) => {
+//   return {
+//     list: state.list,
+//   }
+// }, null, null, { withRef: true })(TagForm);
+
+// const ConnectedMyComponent = connect(mapStateToProps,mapDispatchToProps)(TagForm)
+
+// export default forwardRef((props, ref) =>
+//   <ConnectedMyComponent {...props} refInstance={ref} />
+// );
+
+
+const TagFormConnectRef = forwardRef((props, ref) => <TagForm  {...props} refInstance={ref} />);
+
+export default TagFormConnectRef;
+
+
+// export default connect(mapStateToProps,mapDispatchToProps,null,{forwardRef: true})(TagForm);

@@ -40,7 +40,7 @@ class CourseListTab extends React.Component {
     return (
       <div className="App">
         <h1>React+Redux+Antd实现课程列表:</h1>
-        {/* <h2>react-redux原生API版</h2> */}
+        <h2 style={{color:'red',fontSize:18}}>需要开启本地后端服务才能看到效果</h2>
         <br />
         <Spin spinning={this.state.loading}>
           <CourseField

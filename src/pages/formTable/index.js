@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useRef, useEffect, useState } from "react";
 import { Row, Col, Select, Table, Button, Form, Cascader, Divider, Input } from "antd";
 import { connect } from 'react-redux';
 
@@ -20,6 +20,8 @@ function PageinationTest(props) {
   const [form] = Form.useForm();
   const [selectCus, setSelectCus] = useState([]);
   const [selectDiaVisible, setSelectDiaVisible] = useState(false);
+
+  const selectRef = useRef();
   // const [unselectCus, setUnSelectCus] = useState([]);
   useEffect(() => {
     //   const { dispatch } = props;
@@ -201,6 +203,9 @@ function PageinationTest(props) {
         currency: newCurrency,
       });
     };
+
+
+
     return (
       <span>
         <Input
@@ -234,6 +239,14 @@ function PageinationTest(props) {
 
     return Promise.reject(new Error('产品价格需大于0!'));
   };
+
+
+  const selFocus = () => {
+    // selectRef.current.focus();
+    selectRef.current.focus({
+      cursor: 'all',
+    });
+  }
 
   return (
     <Fragment>
@@ -367,6 +380,22 @@ function PageinationTest(props) {
             </Form.Item>
           </Col>
         </Row>
+
+        <br /><br />
+        <Form.Item
+          name="name"
+          initialValue={'jack'}
+        >
+          {/* <Select ref={selectRef} style={{ width: 300 }}>
+            <Option value="jack">Jack</Option>
+            <Option value="lucy">Lucy</Option>
+          </Select> */}
+          <Input ref={selectRef} />
+        </Form.Item>
+        <Button
+          onClick={() => { selFocus() }}
+        >blur
+        </Button>
 
       </Form>
       {selectDiaVisible && <SelectNews {...dialogObj}></SelectNews>}

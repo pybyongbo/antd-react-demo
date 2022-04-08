@@ -1,10 +1,14 @@
 // import React from 'react';
 
-import React, { Fragment, useRef, useState } from "react";
+import React, { useEffect, Fragment, useRef, useState } from "react";
 import { Modal, Button, Table, Divider, ConfigProvider } from "antd";
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import TagForm from '../../components/InputItem/index.js';
 import styles from './index.less'
+
+import * as data from '../../utils/module.js';
+
+
 
 
 const Tag = (props) => {
@@ -13,6 +17,11 @@ const Tag = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [editItem, setEditItem] = useState({});
   const formRef = useRef();
+  console.log('formRef init', formRef);
+
+  useEffect(() => {
+    console.log('result',data)
+  }, [])
 
   const handleShowModal = (record) => {
     setEditItem(record);
@@ -42,6 +51,7 @@ const Tag = (props) => {
   };
 
   const handleModalOK = () => {
+    console.log(formRef)
     formRef.current.submit();
     console.log('result', rows)
   };
@@ -88,7 +98,7 @@ const Tag = (props) => {
 
   return (
     <Fragment>
-      <h2 style={{marginTop:30}}>react hooks写法中 父组件调用子组件中的方法</h2>
+      <h2 style={{ marginTop: 30 }}>react hooks写法中 父组件调用子组件中的方法</h2>
       <Table
         className="addTags"
         rowKey={`id`}

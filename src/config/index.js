@@ -43,6 +43,21 @@ const menuList = [
   },
 
   {
+    title: '性能优化测试',
+    key: '/home/preoptimzation'
+  },
+
+  {
+    title: '自定义Modal测试',
+    key: '/home/modalTest'
+  },
+
+  {
+    title: '单选切换表单',
+    key: '/home/radioFormTest'
+  },
+
+  {
     title: '课程列表',
     key: '/home/courselist'
   },

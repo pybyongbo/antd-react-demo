@@ -24,8 +24,12 @@ import Toggle from './pages/toggle';
 
 import Navtest from './pages/navtest';
 
-import FormTable from './pages/formTable';
+import Preoptest from './pages/preoptimzation';
 
+import Modaltest from './pages/modalTest';
+
+import FormTable from './pages/formTable';
+import RadioForm from './pages/radioFormTest';
 import CourseList from './pages/courseTab';
 
 
@@ -49,7 +53,12 @@ class IRouter extends React.Component {
                     <Route path="/home/formtable" component={FormTable} />
                     <Route path="/home/paginationnews" component={PageNews} />
                     <Route path="/home/toggleChange" component={Toggle} />
+                    <Route path="/home/preoptimzation" component={Preoptest} />
+                    <Route path="/home/modalTest" component={Modaltest} />
+
                     <Route path="/home/navTest" component={Navtest} />
+                    <Route path="/home/radioFormTest" component={RadioForm} />
+
                     <Route path="/home/courselist" component={CourseList} />
                     {/* <Route path="/home/dynamicform" component={Dynamicform}/>   
                     <Route path="/home/componentform" component={Componentform}/>

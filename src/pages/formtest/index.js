@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-const-assign */
 import React, { Fragment, useRef, useState, useEffect } from "react";
-import { Row, Col, Form, Select, Input, Button, Table, Cascader, message, Tag, Tabs } from "antd";
+import { Row, Col, Form, Select, Input, Button, Table, Cascader, message, Tag, Tabs, Checkbox } from "antd";
 import { Cascader as RCascader } from 'rsuite';
 import "rsuite/dist/rsuite.min.css";
 import AntdInputTag from "antd-input-tag";
@@ -3039,6 +3039,13 @@ const TestForm = (props) => {
 
       <br /><br />
 
+      <Checkbox.Group value={['1', '2']}>
+        <Checkbox value='1'>1</Checkbox>
+        <Checkbox value='2'>2</Checkbox>
+        <Checkbox value='3'>3</Checkbox>
+        <Checkbox value='4'>4</Checkbox>
+      </Checkbox.Group>
+      <br /><br />
       <Table
         columns={columnsArr}
         dataSource={[]}
