@@ -52,3 +52,11 @@ export async function getCourseFieldList(curField){
   });
   return response.data;
 }
+
+export async function getCourseFieldListByKeyWords(keywords){
+  const response = await request({
+    url: `${preCoursefix}/course/get_courses_list?keywords=${keywords}`,
+    method: 'GET',
+  });
+  return response.data;
+}

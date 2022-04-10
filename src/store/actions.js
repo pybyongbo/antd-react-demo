@@ -11,15 +11,17 @@ import {
   GET_ARTICLE_LIST,
   GET_NEWS_LIST,
   CHANGE_COURSE_FIELD,
+  GET_COURSE_FIELD_LIST_BY_KEYWORDS,
   // GET_COURSE_FIELD,
-  // GET_COURSE_FIELD_LIST
+  GET_COURSE_FIELD_LIST
 } from './actionType';
 
-import { 
-  getArticleList, 
-  getNewsList, 
+import {
+  getArticleList,
+  getNewsList,
   // getCourseField,
-  // getCourseFieldList 
+  getCourseFieldList,
+  getCourseFieldListByKeyWords
 } from '../services/index';
 
 export const getInputChangeAction = (value) => ({
@@ -73,9 +75,56 @@ export const filterListCAction = (value) => ({
 
 
 export const changeCourseField = (field) => ({
-    type:CHANGE_COURSE_FIELD,
-    field
+  type: CHANGE_COURSE_FIELD,
+  field
 });
+
+// export const searchByKeyWords = (val) => ({
+//   type: GET_COURSE_FIELD_LIST_BY_KEYWORDS,
+//   val
+// })
+
+export const searchByKeyWords = (params) => {
+
+
+  return async dispatch => {
+    try {
+      // 开始请求
+      dispatch({
+        type: GET_COURSE_FIELD_LIST_BY_KEYWORDS,
+        payload: {
+          loading: true
+        }
+      });
+
+      const response = await getCourseFieldListByKeyWords(params);
+      const { code, result, message } = response;
+
+      dispatch({
+        type: GET_COURSE_FIELD_LIST_BY_KEYWORDS,
+        payload: {
+          loading: false
+        }
+      });
+      if (code === 0) {
+        dispatch({
+          type: GET_COURSE_FIELD_LIST_BY_KEYWORDS,
+          payload: {
+            listData: result,
+          }
+        });
+        return response;
+      } else {
+        throw new Error(message);
+      }
+
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+
+}
 
 // 课程列表分类
 // export const getCourseFieldAll = () => {
@@ -118,44 +167,44 @@ export const changeCourseField = (field) => ({
 
 // }
 
-// export const getCourseFieldListData = (params) => {
+export const getCourseFieldListData = (params) => {
+  return async dispatch => {
+    try {
+      // 开始请求
+      dispatch({
+        type: GET_COURSE_FIELD_LIST,
+        payload: {
+          loading: true
+        }
+      });
 
-//   return async dispatch => {
-//     try {
-//       // 开始请求
-//       dispatch({
-//         type: GET_COURSE_FIELD,
-//         payload: {
-//           loading: true
-//         }
-//       });
+      const response = await getCourseFieldList(params);
+      const { code, result, message } = response;
+      console.log('result 0000', result);
+      dispatch({
+        type: GET_COURSE_FIELD_LIST,
+        payload: {
+          loading: false
+        }
+      });
+      if (code === 0) {
+        
+        dispatch({
+          type: GET_COURSE_FIELD_LIST,
+          payload: {
+            listData: result,
+          }
+        });
+        return response;
+      } else {
+        throw new Error(message);
+      }
 
-//       const response = await getCourseFieldList(params);
-//       const { code, result, message } = response;
-
-//       dispatch({
-//         type: GET_COURSE_FIELD,
-//         payload: {
-//           loading: false
-//         }
-//       });
-//       if (code === 0) {
-//         dispatch({
-//           type: GET_COURSE_FIELD,
-//           payload: {
-//             fieldList: result,
-//           }
-//         });
-//         return response;
-//       } else {
-//         throw new Error(message);
-//       }
-
-//     } catch (error) {
-//       throw new Error(error);
-//     }
-//   }
-// }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+}
 
 
 // 请求文章

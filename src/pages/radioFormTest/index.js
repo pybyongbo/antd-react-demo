@@ -29,6 +29,21 @@ const RadioFormTest = () => {
   const [form] = Form.useForm();
   const [conType, setConType] = useState(1);
 
+  const [submitData, setSubmitData] = useState({
+    cardType: 1, //卡片类型 1 IMAGELINK 2 APPLETCARD
+    productDescribe: '', //产品描述(图文链接)
+    productDescribe_2: '', //产品描述(小程序卡片)
+    priceDescribe: '', // 价格描述(图文链接)
+    priceDescribe_2: '', // 价格描述(小程序卡片)
+    productName: '', // 产品价格(图文链接)
+    productName_2: '', // 产品价格(小程序卡片)
+    productIcon: '', // 封面(图文链接)
+    productIcon_2: '', // 封面(小程序卡片)
+    productLink: '', // 产品链接(图文链接)
+    appletId: '', // appId(小程序卡片)
+    appletRoute: '', // appPath(小程序卡片)
+  });
+
   const onFinish = (values) => {
     console.log('Success:', values);
   };

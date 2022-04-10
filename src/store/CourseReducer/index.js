@@ -1,10 +1,12 @@
 import {
-  CHANGE_COURSE_FIELD
+  CHANGE_COURSE_FIELD,
+  GET_COURSE_FIELD_LIST,
+  GET_COURSE_FIELD_LIST_BY_KEYWORDS
 } from '../actionType';
 
 let initialState = {
   curField: -1,
-  // curTotal: 0
+  listData: []
 };
 
 export default (state = initialState, action) => {
@@ -14,6 +16,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         curField: action.field
+      }
+    case GET_COURSE_FIELD_LIST:
+      return {
+        ...state,
+        listData: action.payload.listData
+      }
+    case GET_COURSE_FIELD_LIST_BY_KEYWORDS:
+      return {
+        ...state,
+        listData: action.payload.listData
       }
     default:
       return state
