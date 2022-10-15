@@ -84,7 +84,7 @@ export const changeCourseField = (field) => ({
 //   val
 // })
 
-export const searchByKeyWords = (params) => {
+export const searchByKeyWords = ({ val, page, pageSize }) => {
 
 
   return async dispatch => {
@@ -97,7 +97,7 @@ export const searchByKeyWords = (params) => {
         }
       });
 
-      const response = await getCourseFieldListByKeyWords(params);
+      const response = await getCourseFieldListByKeyWords(val, page, pageSize);
       const { code, result, message } = response;
 
       dispatch({
@@ -167,7 +167,8 @@ export const searchByKeyWords = (params) => {
 
 // }
 
-export const getCourseFieldListData = (params) => {
+export const getCourseFieldListData = ({ field, page, pageSize }) => {
+  console.log('params11', field, page, pageSize)
   return async dispatch => {
     try {
       // 开始请求
@@ -178,7 +179,7 @@ export const getCourseFieldListData = (params) => {
         }
       });
 
-      const response = await getCourseFieldList(params);
+      const response = await getCourseFieldList(field, page, pageSize);
       const { code, result, message } = response;
       console.log('result 0000', result);
       dispatch({
@@ -188,7 +189,7 @@ export const getCourseFieldListData = (params) => {
         }
       });
       if (code === 0) {
-        
+
         dispatch({
           type: GET_COURSE_FIELD_LIST,
           payload: {

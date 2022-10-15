@@ -6,6 +6,8 @@ import {
 
 let initialState = {
   curField: -1,
+  page: 1,
+  pageSize: 10,
   listData: []
 };
 
@@ -15,6 +17,8 @@ export default (state = initialState, action) => {
     case CHANGE_COURSE_FIELD:
       return {
         ...state,
+        page: action.page,
+        pageSize: action.pageSize,
         curField: action.field
       }
     case GET_COURSE_FIELD_LIST:

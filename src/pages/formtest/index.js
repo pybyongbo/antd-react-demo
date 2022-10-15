@@ -5,7 +5,9 @@ import React, { Fragment, useRef, useState, useEffect } from "react";
 import { Row, Col, Form, Select, Input, Button, Table, Cascader, message, Tag, Tabs, Checkbox } from "antd";
 import { Cascader as RCascader } from 'rsuite';
 import "rsuite/dist/rsuite.min.css";
-import AntdInputTag from "antd-input-tag";
+import AntdInputTag from "../../components/MyInputTag";
+// import AntdInputTag from "antd-input-tag";
+
 import groupTags from '../../utils/tagData.js'
 const { Option } = Select;
 const TestForm = (props) => {
@@ -3026,12 +3028,14 @@ const TestForm = (props) => {
           <br /> <br /> <br />
           <Col span={24}>
 
-            <AntdInputTag value={data} ref={childRef} />
-
+            <AntdInputTag value={data} ref={childRef} isRepeat={false} />
+            <br />
             <Button style={{ marginTop: 10 }} onClick={updateChildState}>
               获取子组件数据
             </Button>
+            <br /><br />
             <div>{JSON.stringify(data)}</div>
+           
           </Col>
         </Row>
 
@@ -3040,7 +3044,13 @@ const TestForm = (props) => {
       <br /><br />
 
       <Checkbox.Group value={['1', '2']}>
-        <Checkbox value='1'>1</Checkbox>
+        <Checkbox value='1'
+          onFocus={() => {
+            console.log('1');
+          }}
+          onBlur={() => {
+            console.log('2')
+          }}>1</Checkbox>
         <Checkbox value='2'>2</Checkbox>
         <Checkbox value='3'>3</Checkbox>
         <Checkbox value='4'>4</Checkbox>

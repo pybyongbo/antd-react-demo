@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import { Form, Input, Row, Col, InputNumber, Button } from "antd";
 import { DeleteOutlined } from '@ant-design/icons';
-const RateForm = (props, RateFormRef) => {
+const RateForm = forwardRef((props, RateFormRef) => {
   const [form] = Form.useForm();
   const { strategyType, getModifiyData, cindex } = props;
   useEffect(() => {
@@ -107,5 +107,5 @@ const RateForm = (props, RateFormRef) => {
       </Form>
     </Fragment>
   );
-};
-export default forwardRef(RateForm);
+});
+export default RateForm;

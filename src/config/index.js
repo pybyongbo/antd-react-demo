@@ -58,8 +58,27 @@ const menuList = [
   },
 
   {
-    title: '课程列表',
+    title: '深层次组件传值',
+    key: '/home/deepComponentsData'
+  },
+  {
+    title: 'Ref测试',
+    key: '/home/reftest'
+  },
+
+  {
+    title: '课程列表(需启动后端服务)',
     key: '/home/courselist'
+  },
+
+  {
+    title: 'useEffect测试',
+    key: '/home/useEffectTest'
+  },
+
+  {
+    title: '多表单联动',
+    key: '/home/formProvidertest'
   },
 
   // {

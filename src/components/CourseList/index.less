@@ -1,11 +1,11 @@
 :global {
-  .field-wrapper{
-    width:1200px;;
-    margin:0 auto;
+  .field-wrapper {
+    width: 1200px;
+    margin: 0 auto;
     overflow: hidden;
-    ul{
+    ul {
       overflow: hidden;
-      margin-top:30px;
+      margin-top: 30px;
       padding-left: 0;
       .course-item {
         list-style-type: none;
@@ -15,7 +15,7 @@
         margin: 0 0 30px 18px;
         box-sizing: border-box;
         border-radius: 10px;
-    
+
         &:hover {
           border-color: #ddd;
           -webkit-box-shadow: 1px 1px 2px 1px #ececec;
@@ -28,31 +28,32 @@
           background-color: #ededed;
           img {
             width: 100%;
+            max-height: 124px;
           }
         }
-      
+
         &:hover {
           border-color: #ddd;
         }
-      
+
         .course-tt {
-           height: 40px;
+          height: 40px;
           padding: 0 10px;
           margin-top: 5px;
-          font-size: 14px;
+          font-size: 14px !important;
           box-sizing: border-box;
           word-break: break-all;
           overflow: hidden;
-          &>a{
-            color:#000;
+          & > a {
+            color: #000;
             text-decoration: none;
             text-align: left;
-            &:hover{
-            color: #fd8f04
-          }
+            &:hover {
+              color: #fd8f04;
+            }
           }
         }
-      
+
         .price {
           height: 24px;
           line-height: 24px;
@@ -64,15 +65,14 @@
             font-size: 14px;
           }
         }
-        .studyNum{
+        .studyNum {
           float: right;
           font-size: 13px;
           color: #aaa;
-          margin-right:10px;
-          line-height:24px;
+          margin-right: 10px;
+          line-height: 24px;
         }
       }
     }
   }
-  
 }

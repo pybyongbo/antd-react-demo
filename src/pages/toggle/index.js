@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useMemo } from "react";
-import { message ,Menu} from 'antd';
+import { message, Menu } from 'antd';
 import './index.less';
 const { SubMenu } = Menu;
 const Tooltip = ({ children, text, ...rest }) => {
@@ -68,7 +68,7 @@ const TestTool = () => {
 
 
 function Child({ count }) {
-  return <p>当前传递的count为:{count}</p>
+  return <p style={{ width: '100%', margin: '20px 0' }}>当前传递的count为:{count}</p>
 }
 
 
@@ -922,29 +922,29 @@ const HookDemo = () => {
 
   const newmenuAllList = formatDataTree(menuListArr);
 
-  const deep=(menuList)=>{
+  const deep = (menuList) => {
     // const icon ='';
-    if (menuList&&menuList.length>0){
-      return menuList.map((item)=>{
-        if (item.chilren&&item.chilren.length > 0){
-          return ( item.isHidden==="N"?<SubMenu 
-            key={item.menuCode} 
+    if (menuList && menuList.length > 0) {
+      return menuList.map((item) => {
+        if (item.chilren && item.chilren.length > 0) {
+          return (item.isHidden === "N" ? <SubMenu
+            key={item.menuCode}
             // icon={icons(item.icon)}
             title={item.nameZn}
-            >   
+          >
             {deep(item.chilren)}
-          </SubMenu>:null)
+          </SubMenu> : null)
         }
-        return ( 
-          item.isHidden==="N"?<Menu.Item 
-          key={item.menuCode}
-          // icon={icons(item.icon)}
-           onClick={() => {
-            // link(item);   
-            console.log('result',123)
-          }}>
+        return (
+          item.isHidden === "N" ? <Menu.Item
+            key={item.menuCode}
+            // icon={icons(item.icon)}
+            onClick={() => {
+              // link(item);   
+              console.log('result', 123)
+            }}>
             {item.nameZn}
-          </Menu.Item> :null
+          </Menu.Item> : null
         )
       })
     }
@@ -968,8 +968,8 @@ const HookDemo = () => {
         // selectedKeys={selectKey}
         // defaultOpenKeys={openKeys}
         mode="inline"
-        // onOpenChange={e => setOpenKeys(e)}
-        // onSelect={e => setSelectKey(e)}
+      // onOpenChange={e => setOpenKeys(e)}
+      // onSelect={e => setSelectKey(e)}
       >
         {deep(newmenuAllList)}
       </Menu>

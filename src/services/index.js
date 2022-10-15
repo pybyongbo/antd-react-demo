@@ -37,7 +37,7 @@ export async function getNewsList(params) {
 }
 
 
-export async function getCourseField(){
+export async function getCourseField() {
   const response = await request({
     url: `${preCoursefix}/course/get_course_fields`,
     method: 'GET',
@@ -45,17 +45,17 @@ export async function getCourseField(){
   return response.data;
 }
 
-export async function getCourseFieldList(curField){
+export async function getCourseFieldList(curField, page = 1, pageSize = 10) {
   const response = await request({
-    url: `${preCoursefix}/course/get_courses/all?field=${curField}`,
+    url: `${preCoursefix}/course/get_courses/all?field=${curField}&page=${page}&pageSize=${pageSize}`,
     method: 'GET',
   });
   return response.data;
 }
 
-export async function getCourseFieldListByKeyWords(keywords){
+export async function getCourseFieldListByKeyWords(keywords, page = 1, pageSize = 10) {
   const response = await request({
-    url: `${preCoursefix}/course/get_courses_list?keywords=${keywords}`,
+    url: `${preCoursefix}/course/get_courses_list?keywords=${keywords}&page=${page}&pageSize=${pageSize}`,
     method: 'GET',
   });
   return response.data;

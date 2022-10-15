@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { Fragment, useEffect, useState, useMemo } from "react";
-import { Row, Col, Form, Input, Select, Radio, Button } from "antd";
+import { Row, Col, Form, Input, Select, Radio, Button, InputNumber } from "antd";
 
 
 const { Option } = Select;
@@ -27,7 +27,12 @@ const insureType = [
 
 const RadioFormTest = () => {
   const [form] = Form.useForm();
+
+  // const [otherform] = Form.useForm();
+
   const [conType, setConType] = useState(1);
+
+  const [formType, setFormType] = useState('');
 
   const [submitData, setSubmitData] = useState({
     cardType: 1, //卡片类型 1 IMAGELINK 2 APPLETCARD
@@ -46,6 +51,50 @@ const RadioFormTest = () => {
 
   const onFinish = (values) => {
     console.log('Success:', values);
+  };
+
+  const [postData, setPostData] = useState({
+    uname: '',
+    uage: ''
+  });
+
+  //当前操作的表单元素
+  const changeValueType = (valueType) => {
+    setFormType(valueType);
+  };
+
+  //注意：当前操作的表单元素和进行验证的表单元素不能为同一个，否则会陷入死循环  
+  //最小值函数
+  const minValueFn = (rule, value, callback) => {
+    const { getFieldValue, validateFields } = form;
+    const maxValue = getFieldValue('creditEndRange');
+    if (value != null && value !== '') {
+      if (maxValue != null && maxValue !== '' && value >= maxValue) {
+        // callback('最小值需小于最大值');
+        return Promise.reject(new Error('最小值需小于最大值'));
+      }
+    }
+    // if (formType === rule.field) {
+    //   validateFields(['creditEndRange']);
+    // }
+    // callback();
+    return Promise.resolve();
+  };
+  //最大值函数
+  const maxValueFn = (rule, value, callback) => {
+    const { getFieldValue, validateFields } = form;
+    const minValue = getFieldValue('creditStartRange');
+    if (value != null && value !== '') {
+      if (minValue != null && minValue !== '' && value <= minValue) {
+        // callback('最大值需大于最小值');
+        return Promise.reject(new Error('最大值需大于最小值'));
+      }
+    }
+    // if (formType === rule.field) {
+    //   validateFields(['creditStartRange']);
+    // }
+    // callback();
+    return Promise.resolve();
   };
 
   const PRODUCTLINK = useMemo(
@@ -75,29 +124,78 @@ const RadioFormTest = () => {
 
   const PRODUCTDESCRIBE = useMemo(
     () => (
-      <Form.Item
-        label="产品描述"
-        name="productDescribe"
-        rules={[
-          {
-            required: true,
-            message: '请输入产品描述',
-          },
-        ]}
-      >
-        <Input
-          // onChange={productDescribe => {
-          // 	setSubmitData(prev => ({ ...prev, productDescribe }));
-          // }}
-          placeholder="请填写产品描述"
-        // maxLength={30}
-        // suffix={
-        //   <span>
-        //     {form.getFieldValue()?.productDescribe?.length}/30
-        //   </span>
-        // }
-        />
-      </Form.Item>
+      <>
+
+        <Form.Item
+          label="产品描述"
+          name="productDescribe"
+          rules={[
+            {
+              required: true,
+              message: '请输入产品描述',
+            },
+          ]}
+        >
+          <Input
+            // onChange={productDescribe => {
+            // 	setSubmitData(prev => ({ ...prev, productDescribe }));
+            // }}
+            placeholder="请填写产品描述"
+          // maxLength={30}
+          // suffix={
+          //   <span>
+          //     {form.getFieldValue()?.productDescribe?.length}/30
+          //   </span>
+          // }
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="意向分"
+          labelCol={8}
+        >
+          <Form.Item
+            name="creditStartRange"
+            rules={[
+              {
+                required: form.getFieldValue('creditEndRange'),
+                message: '请输入最小值'
+              },
+              { validator: minValueFn }
+            ]}
+            style={{ float: 'left' }}
+          >
+            <InputNumber
+              min={1}
+              style={{ width: '100%' }}
+              placeholder="请输入最小值"
+              onClick={() => {
+                changeValueType('creditStartRange');
+              }}
+            />
+          </Form.Item>
+          <span style={{ float: 'left', margin: '0 20px' }}>至</span>
+          <Form.Item
+            name="creditEndRange"
+            rules={[
+              { required: form.getFieldValue('creditStartRange'), message: '请输入最大值' },
+              { validator: maxValueFn },
+            ]}
+            style={{ float: 'left' }}
+          >
+            <InputNumber
+              min={1}
+              style={{ width: '100%' }}
+              placeholder="请输入最大值"
+              onClick={() => {
+                changeValueType('creditEndRange');
+              }}
+            />
+          </Form.Item>
+        </Form.Item>
+      </>
+
+
     ),
     [form.getFieldValue()],
   );
@@ -205,7 +303,7 @@ const RadioFormTest = () => {
           name="productName"
         >
 
-          <Input s placeholder="请输入产品名称" />
+          <Input placeholder="请输入产品名称" />
 
         </Form.Item>
         <Form.Item
@@ -282,12 +380,71 @@ const RadioFormTest = () => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+          >
             Submit
           </Button>
         </Form.Item>
 
       </Form>
+
+      <br />
+      <hr />
+
+      <h3>Form的component属性设置为false,不创建form元素DOM节点</h3>
+      <br />
+
+      <Form
+
+        component={false}
+      >
+
+        <Form.Item
+          label="姓名"
+        // name="uname"
+        >
+
+          <Input
+            placeholder="请输入姓名"
+            allowClear
+            onChange={e => {
+              setPostData({ ...postData, uname: e.target.value });
+            }}
+          />
+
+        </Form.Item>
+
+        <Form.Item
+          label="年龄"
+        // name="uage"
+        >
+
+          <Input
+            placeholder="请输入年龄"
+            allowClear
+            onChange={e => {
+              setPostData({ ...postData, uage: e.target.value });
+            }}
+          />
+
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button
+            type="primary"
+            // htmlType="submit"
+            onClick={() => {
+              console.log({ ...postData })
+            }}
+          >
+            提交
+          </Button>
+        </Form.Item>
+
+      </Form>
+
 
     </div>
   );

@@ -29,6 +29,16 @@ import Preoptest from './pages/preoptimzation';
 import Modaltest from './pages/modalTest';
 
 import FormTable from './pages/formTable';
+
+import DeepComponentsData from './pages/deepComponentsData/index';
+
+import RefTest from './components/RefTest';
+
+import UseEffectTest from './components/UseEffectTest/index-reducer.js'
+
+import FormProvider from './components/FormProvider';
+
+
 import RadioForm from './pages/radioFormTest';
 import CourseList from './pages/courseTab';
 
@@ -59,7 +69,16 @@ class IRouter extends React.Component {
                     <Route path="/home/navTest" component={Navtest} />
                     <Route path="/home/radioFormTest" component={RadioForm} />
 
+                    <Route path="/home/deepComponentsData" component={DeepComponentsData} />
+
                     <Route path="/home/courselist" component={CourseList} />
+
+                    <Route path ="/home/reftest" component={RefTest}/>
+
+                    <Route path ="/home/useEffectTest" component={UseEffectTest}/>
+
+                    <Route path="/home/formProvidertest" component={FormProvider}/>
+
                     {/* <Route path="/home/dynamicform" component={Dynamicform}/>   
                     <Route path="/home/componentform" component={Componentform}/>
                     <Route path="/home/dialogform" component={Dialogform}/>

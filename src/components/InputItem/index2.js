@@ -7,20 +7,20 @@ import React, {
 import { connect } from 'react-redux';
 import { Form, Input } from "antd";
 
-const TagForm = (props) => {
+
+const TagForm = forwardRef((props, formRef) => {
   const [form] = Form.useForm();
-  const { editItem, handleModalCancel, setTabData, refInstance } = props;
+  const { editItem, handleModalCancel, setTabData } = props;
   useEffect(() => {
-    // console.log('props', props);
-    console.log('som', editItem)
+
+    // console.log('som', editItem)
     editItem &&
       form.setFieldsValue({
         tagName: editItem.content
       });
   }, [editItem, form]);
 
-  // useImperativeHandle(tagFormRef, () => ({
-  useImperativeHandle(refInstance, () => ({
+  useImperativeHandle(formRef, () => ({
     submit: () => {
       const inputVal = form.getFieldValue("tagName");
       inputVal && setTabData({
@@ -45,26 +45,12 @@ const TagForm = (props) => {
       </Form>
     </Fragment>
   );
-  // });
-}
-// export default TagForm;
-// export default forwardRef(TagForm);
-
-const mapStateToProps = state => ({
-  ...state
 });
 
-const mapDispatchToProps = dispatch => ({ dispatch });
-
-const TagFormConnect = connect(mapStateToProps, mapDispatchToProps)(TagForm);
-
-
-
-const TagFormConnectRef = forwardRef((props, ref) => <TagFormConnect  {...props} refInstance={ref} />);
-
-export default TagFormConnectRef;
 
 
 
 
+
+export default TagForm;
 

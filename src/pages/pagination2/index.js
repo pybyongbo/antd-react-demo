@@ -1,19 +1,31 @@
 /* eslint-disable no-unused-vars */
 import React, { Fragment, useEffect, useState } from "react";
-import { Table } from "antd";
+import { Table, Form, Input } from "antd";
 import { connect } from 'react-redux';
 
 import { getNewsListByParams } from '../../store/actions';
 
 function PageinationNews(props) {
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState([])
+  const [form] = Form.useForm();
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  const [detail, setDetail] = useState({});
+
+  const [apiloading, setApiLoading] = useState(true);
 
   useEffect(() => {
     const { dispatch } = props;
-    dispatch(getNewsListByParams({ page: 1, pageSize: 10 }));
+    dispatch(getNewsListByParams({ page: 1, pageSize: 10 })).then(res => {
+      console.log('res', res?.list[0]);
+      setDetail(res?.list[0]);
+      // setApiLoading(false);
+      form.resetFields();
+
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [form]);
 
   const { todolist: { newsList, total, loading } } = props;
 
@@ -73,6 +85,20 @@ function PageinationNews(props) {
           // onShowSizeChange: onShowSizeChange
         }}
       />
+      {/* <p>{detail.title}</p> */}
+      {/* {!apiloading && (<Form initialValues={ detail }>
+        <Form.Item label="标题" name="title" >
+          <Input  />
+        </Form.Item>
+      </Form>
+      )} */}
+
+      <Form form={form} initialValues={detail}>
+        <Form.Item label="标题" name="title" >
+          <Input />
+        </Form.Item>
+      </Form>
+
     </div>
 
   )

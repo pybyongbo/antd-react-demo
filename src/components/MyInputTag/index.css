@@ -1,0 +1,35 @@
+.wrap {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: text;
+  background: #fff;
+  /* transition: all .3s; */
+  padding: 8px 4px 0;
+  max-width: 320px;
+}
+
+.wrap:hover {
+  border: 1px solid #ccc !important;
+  border-radius: 5px;
+}
+.inputClass {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none !important;
+}
+.ulClass {
+  float: left;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+.wrap:hover {
+  border: 1px solid #8e8e8e;
+}
+.ant-tag {
+  padding: 4px 7px;
+  border: none;
+  background: "#f3f3f3";
+}

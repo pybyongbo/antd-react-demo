@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
 import React, { Fragment, useRef, useEffect, useState } from "react";
-import { Row, Col, Select, Table, Button, Form, Cascader, Divider, Input } from "antd";
+import { Row, Col, Select, Table, Button, Form, Cascader, Divider, Input, InputNumber } from "antd";
 import { connect } from 'react-redux';
 
 import moment from 'moment';
@@ -20,6 +20,47 @@ function PageinationTest(props) {
   const [form] = Form.useForm();
   const [selectCus, setSelectCus] = useState([]);
   const [selectDiaVisible, setSelectDiaVisible] = useState(false);
+
+  //当前操作的表单元素存进useState中
+  const [formType, setFormType] = useState('');
+
+  //注意：当前操作的表单元素和进行验证的表单元素不能为同一个，否则会陷入死循环  
+  //最小值函数
+  const minValueFn = (rule, value, callback) => {
+    const { getFieldValue, validateFields } = form;
+    const maxValue = getFieldValue('creditEndRange');
+    if (value != null && value !== '') {
+      if (maxValue != null && maxValue !== '' && value >= maxValue) {
+        // callback('最小值需小于最大值');
+        return Promise.reject(new Error('最小值需小于最大值'));
+      }
+    }
+    // if (formType === rule.field) {
+    //   validateFields(['creditEndRange']);
+    // }
+    // callback();
+    return Promise.resolve();
+  };
+  //最大值函数
+  const maxValueFn = (rule, value, callback) => {
+    const { getFieldValue, validateFields } = form;
+    const minValue = getFieldValue('creditStartRange');
+    if (value != null && value !== '') {
+      if (minValue != null && minValue !== '' && value <= minValue) {
+        // callback('最大值需大于最小值');
+        return Promise.reject(new Error('最大值需大于最小值'));
+      }
+    }
+    // if (formType === rule.field) {
+    //   validateFields(['creditStartRange']);
+    // }
+    // callback();
+    return Promise.resolve();
+  };
+  //当前操作的表单元素
+  const changeValueType = (valueType) => {
+    setFormType(valueType);
+  };
 
   const selectRef = useRef();
   // const [unselectCus, setUnSelectCus] = useState([]);
@@ -83,8 +124,8 @@ function PageinationTest(props) {
   }
 
   const onHandleSubmit = (val) => {
-
-    const productIds = val?.productIds.flat(2);
+    console.log('val', val)
+    const productIds = val?.productIds?.flat(2);
     console.log('productIds', productIds)
 
     console.log({
@@ -242,6 +283,7 @@ function PageinationTest(props) {
 
 
   const selFocus = () => {
+    console.log(selectRef.current)
     // selectRef.current.focus();
     selectRef.current.focus({
       cursor: 'all',
@@ -368,6 +410,55 @@ function PageinationTest(props) {
               <Input.TextArea rows={4} maxLength={255} placeholder="非必填,如果填写,请输入有效的URL地址">
               </Input.TextArea>
             </Form.Item>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span={18}>
+            <Form.Item
+              label="意向分"
+              labelCol={8}
+            >
+              <Form.Item
+                name="creditStartRange"
+                rules={[
+                  {
+                    required: form.getFieldValue('creditEndRange'),
+                    message: '请输入最小值'
+                  },
+                  { validator: minValueFn }
+                ]}
+                style={{ float: 'left' }}
+              >
+                <InputNumber
+                  min={1}
+                  style={{ width: '100%' }}
+                  placeholder="请输入最小值"
+                  onClick={() => {
+                    changeValueType('creditStartRange');
+                  }}
+                />
+              </Form.Item>
+              <span style={{ float: 'left', margin: '0 20px' }}>至</span>
+              <Form.Item
+                name="creditEndRange"
+                rules={[
+                  { required: form.getFieldValue('creditStartRange'), message: '请输入最大值' },
+                  { validator: maxValueFn },
+                ]}
+                style={{ float: 'left' }}
+              >
+                <InputNumber
+                  min={1}
+                  style={{ width: '100%' }}
+                  placeholder="请输入最大值"
+                  onClick={() => {
+                    changeValueType('creditEndRange');
+                  }}
+                />
+              </Form.Item>
+            </Form.Item>
+
           </Col>
         </Row>
 

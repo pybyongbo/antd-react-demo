@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import { Form, Input } from "antd";
 
-const TagForm = (props, tagFormRef) => {
+const TagForm = forwardRef((props, tagFormRef) => {
   const [form] = Form.useForm();
 
   const { strategyType, getModifiyData, cindex } = props;
@@ -75,5 +75,5 @@ const TagForm = (props, tagFormRef) => {
       </Form>
     </Fragment>
   );
-};
-export default forwardRef(TagForm);
+});
+export default TagForm;
