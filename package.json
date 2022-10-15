@@ -11,7 +11,7 @@
     "@umijs/test": "^3.3.0",
     "antd": "^4.17.0",
     "antd-input-tag": "1.0.14",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "babel-eslint": "10.0.2",
     "babel-jest": "^24.8.0",
     "babel-loader": "8.0.6",
